@@ -76,10 +76,17 @@ export function buildShots(seen: Seen[], d: Deps): ShotQuestion[] {
         case 'outfit': return {look: {...real, shirt: otherLook.shirt, pants: otherLook.pants}, hat: true};
       }
     };
-    // Three different KINDS of change, one change from each, so no two wrong answers look alike.
+    // Three different KINDS of change, one change from each, so no two wrong answers look alike. The changes you can see
+    // from across a booth come first: a different sky always (when the scene has one), then missing scenery or extra people.
+    // Clothes and fewer people are small on a thumbnail, so they are only used when nothing bolder is left.
     const byKind = new Map<Kind, Mod[]>();
     for (const m of SUPPORT[s.scene]) byKind.set(KIND[m], [...(byKind.get(KIND[m]) ?? []), m]);
-    const mods = shuffle([...byKind.values()]).slice(0, 3).map(list => shuffle(list)[0]);
+    const bold: Kind[] = shuffle((['scenery', 'crowd'] as Kind[]).filter(k => byKind.has(k)));
+    const order: Kind[] = [...(byKind.has('sky') ? ['sky' as Kind] : []), ...bold, 'outfit'];
+    const mods = order.filter(k => byKind.has(k)).slice(0, 3).map(k => {
+      const list = byKind.get(k)!;
+      return k === 'crowd' && list.includes('more') ? 'more' as Mod : shuffle(list)[0];
+    });
     const shots = shuffle<Shot>([{variant: {}, mod: null}, ...mods.map(m => ({variant: variantFor(m), mod: m}))]);
     return {n: s.n, scene: s.scene, shots, answer: shots.findIndex(x => x.mod === null)};
   });

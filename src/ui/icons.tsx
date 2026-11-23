@@ -20,6 +20,7 @@ export const Bed = make(<><path d="M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5
 export const AppX = make(<><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m9 9 6 6M15 9l-6 6"/></>);
 export const Moon = make(<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/>);
 export const Check = make(<path d="m5 12.5 4.5 4.5L19 7"/>);
+export const Cross = make(<path d="M6 6l12 12M18 6 6 18"/>);
 export const Phone = make(<><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.5 18.5h3"/></>);
 export const Book = make(<><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></>);
 export const People = make(<><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 20c0-3.6 2.6-6 6-6s6 2.4 6 6"/><path d="M16 14.2c2.8 0 5 1.8 5 4.8"/></>);

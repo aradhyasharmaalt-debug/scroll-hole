@@ -6,7 +6,7 @@ import {Scene} from '../reels/scenes';
 import {fmtSeconds, type SessionStats} from '../session';
 import {sfx} from '../sound';
 import {useAfter} from '../ui/hooks';
-import {Avatar} from '../ui/icons';
+import {Avatar, Check, Cross} from '../ui/icons';
 
 /** No timers on the questions: take as long as you like. Only a walk-away safety net resets the booth after 3 minutes of nobody touching it. */
 const WALK_AWAY_MS = 180000;
@@ -108,8 +108,10 @@ export function ShotResult({stats, questions, answers, onNext}: {stats: SessionS
   return <section className="center result">
     <div className="display t240 num"><span className="signal">{got}</span><span className="t120"> / {total}</span></div>
     <h1 className="display t64">{copy.quiz.retained}</h1>
-    <div className="pips" aria-hidden="true">{questions.map((_, k) => <i key={k} className={answers[k] === questions[k].answer ? 'on' : ''}/>)}</div>
-    <p className="lede">{copy.quiz.watched(stats.seen.length, fmtSeconds(stats.actual))} {copy.quiz.picked(got, total)}</p>
+    <div className="pips" role="img" aria-label={`${got} of ${total} right`}>{questions.map((_, k) => answers[k] === questions[k].answer
+      ? <i key={k} className="on"><Check/></i>
+      : <i key={k} className="off"><Cross/></i>)}</div>
+    <p className="lede">{copy.quiz.watched(stats.seen.length, fmtSeconds(stats.actual))}</p>
     <p className="display t36">{verdict}</p>
     {board.players >= 10 && <p className="hint">{copy.quiz.average(Math.round(board.pctSum / board.players), board.players)}</p>}
     <button className="cta" onClick={onNext}>{copy.quiz.again}</button>

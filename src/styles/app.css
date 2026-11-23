@@ -38,7 +38,7 @@ svg{display:block}
 /* ---------- attract ---------- */
 .fall{position:absolute;left:50%;top:50%;width:6vh;height:10.6vh;margin:-5.3vh 0 0 -3vh;border-radius:1.2vh;background:linear-gradient(160deg,hsl(var(--h) 90% 58%),hsl(calc(var(--h) + 60) 80% 32%));animation:fall 6s linear infinite;animation-delay:var(--d);opacity:0}
 .attract{gap:3.4vh}
-.attract>*:not(.fall):not(.scrim){position:relative;z-index:2}
+.attract>*:not(.fall):not(.scrim):not(.howto){position:relative;z-index:2}
 .attract .scrim{position:absolute;left:50%;top:50%;width:min(92vw,980px);height:min(72vh,640px);transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(11,10,13,.82) 0%,rgba(11,10,13,.6) 55%,transparent 75%);pointer-events:none;z-index:1}
 .attract .hand{color:var(--signal);animation:poke 1.3s ease-in-out infinite}
 .attract .hand svg{width:var(--t64);height:var(--t64);stroke-width:1.8}
@@ -285,8 +285,10 @@ svg{display:block}
 .qopt:hover,.qopt:focus-visible{border-color:var(--signal);background:#ff33551a}
 .qopt.picked{border-color:var(--signal);background:var(--signal);color:var(--void)}
 .pips{display:flex;gap:1.2vh}
-.pips i{width:4.6vh;height:4.6vh;border-radius:.8vh;border:2px solid #ffffff40}
-.pips i.on{background:var(--signal);border-color:var(--signal)}
+.pips i{display:grid;place-items:center;width:6vh;height:6vh;border-radius:1vh;border:2px solid #ffffff40;color:#ffffff59}
+.pips i svg{width:62%;height:62%;stroke-width:3}
+.pips i.on{background:var(--signal);border-color:var(--signal);color:var(--void)}
+.pips i.on svg{stroke-width:3.6}
 .result{gap:1.4vh}
 .review{list-style:none;padding:0;display:grid;gap:.8vh;width:min(88vw,900px);text-align:left;max-height:30vh;overflow:auto}
 .review li{display:grid;gap:.2vh;padding:.8vh 1.4vh;border-radius:.8vh;border:1px solid #ffffff22;font-size:var(--t18)}
@@ -325,3 +327,30 @@ svg{display:block}
 .shotlabel{position:absolute;left:0;right:0;bottom:0;padding:.8vh .8vh 1vh;background:rgba(11,10,13,.82);color:var(--ink);font-size:clamp(13px,1.9vh,17px);line-height:1.2;text-align:center}
 .scene.sky-day .drop,.scene.sky-day .ripple{display:none}
 .logomark{flex:none;display:block}
+
+/* ---------- start-screen hand demos ---------- */
+.howto{position:absolute;right:3vw;top:50%;transform:translateY(-50%);display:flex;gap:1.6vw;z-index:2}
+.demo{display:grid;justify-items:center;gap:.4vh;width:clamp(110px,12vw,170px)}
+.demo-stage{position:relative;width:100%;aspect-ratio:3/4;display:grid;place-items:center;border:2px solid #ffffff26;border-radius:2vh;overflow:hidden;background:#ffffff08}
+.demo-hand{position:absolute;bottom:-6%;left:50%;width:72%;margin-left:-36%;overflow:visible}
+.demo-phone{position:absolute;top:9%;left:50%;width:44%;aspect-ratio:9/16;margin-left:-22%;border-radius:1.2vh;border:2px solid #ffffff55;overflow:hidden}
+.demo-phone .card{position:absolute;inset:0;display:block}
+.demo-phone .card.a{background:#f5b45b;animation:card-out 3.2s var(--ease) infinite}
+.demo-phone .card.b{background:#5ba8f5;animation:card-in 3.2s var(--ease) infinite}
+@keyframes card-out{0%,38%{transform:none}55%,100%{transform:translateY(-105%)}}
+@keyframes card-in{0%,38%{transform:translateY(105%)}55%,100%{transform:none}}
+.demo-hand.flick{animation:hand-flick 3.2s var(--ease) infinite}
+@keyframes hand-flick{0%,12%{transform:translateY(8%)}38%{transform:translateY(8%)}55%{transform:translateY(-30%)}75%,100%{transform:translateY(8%)}}
+.demo-arrow{position:absolute;right:8%;top:14%;width:14%;animation:arrow 3.2s ease-in-out infinite}
+@keyframes arrow{0%,30%{opacity:0;transform:translateY(8px)}45%,60%{opacity:1;transform:none}75%,100%{opacity:0;transform:translateY(-8px)}}
+.demo-hand .thumb{animation:thumb-pinch 2.4s var(--ease) infinite}
+.demo-hand .index{animation:index-pinch 2.4s var(--ease) infinite}
+@keyframes thumb-pinch{0%,25%{transform:rotate(-22deg)}45%,65%{transform:rotate(12deg)}90%,100%{transform:rotate(-22deg)}}
+@keyframes index-pinch{0%,25%{transform:rotate(22deg)}45%,65%{transform:rotate(-10deg)}90%,100%{transform:rotate(22deg)}}
+.demo-heart{position:absolute;top:12%;left:50%;width:26%;margin-left:-13%;opacity:0;animation:heart-pop 2.4s var(--ease) infinite}
+@keyframes heart-pop{0%,40%{opacity:0;transform:scale(.4)}52%{opacity:1;transform:scale(1.25)}70%{opacity:1;transform:scale(1)}90%,100%{opacity:0;transform:translateY(-10px) scale(1)}}
+.demo-cap{font-family:var(--display);font-size:var(--t36);line-height:1;text-transform:uppercase;color:var(--ink);margin-top:1vh}
+.demo-sub{font-size:var(--t18);color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+@media (max-width:1050px){.howto{display:none}}
+@media (prefers-reduced-motion:reduce){.demo *{animation:none !important}.demo-heart{opacity:1}.demo-phone .card.b{display:none}}
+.demo-3d{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-mask-image:linear-gradient(#000 78%,transparent 100%);mask-image:linear-gradient(#000 78%,transparent 100%)}
